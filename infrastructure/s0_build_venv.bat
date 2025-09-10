@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 ::----------------------------------------------------------------------------------------------------------------------
-SET "PATH_VENV=%~dp0venv\p310_lab01"
+SET "PATH_VENV=%~dp0venv\p310_lab_01_win"
 SET "REQ_FILE=%~dp0requirements.txt"
 SET "PATH_PYTHON=%LOCALAPPDATA%\Programs\Python\Python310\python.exe"
 ::----------------------------------------------------------------------------------------------------------------------

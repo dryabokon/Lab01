@@ -1,6 +1,8 @@
+import time
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 filename_in = "../data/dataset_titanic.csv"
 folder_out = "../output"
 # ----------------------------------------------------------------------------------------------------------------------
@@ -47,6 +49,11 @@ def EDA_Columns(df):
     return
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-    df = pd.read_csv(filename_in,sep='\t')
-    EDA_histo(df)
-    EDA_Columns(df)
+
+    time_start = time.time()
+    for i in tqdm(range(100)):
+        df = pd.read_csv(filename_in,sep='\t')
+        EDA_histo(df)
+        #EDA_Columns(df)
+
+    print(f'Time elapsed: {time.time() - time_start:.2f} seconds')
