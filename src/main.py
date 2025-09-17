@@ -1,10 +1,16 @@
+import sys
 import time
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 filename_in = "../data/dataset_titanic.csv"
-folder_out = "../output"
+folder_out = "../output/"
+# ----------------------------------------------------------------------------------------------------------------------
+sys.path.append("../tools")
+from tools import tools_ML_v2
+from tools import tools_DF
+from tools.classifier import classifier_Gauss
 # ----------------------------------------------------------------------------------------------------------------------
 def EDA_histo(df):
     columns = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
@@ -49,11 +55,12 @@ def EDA_Columns(df):
     return
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
+    Classifier = classifier_Gauss.classifier_Gauss()
+    ML = tools_ML_v2.ML(Classifier,folder_out=folder_out)
+    df = pd.read_csv(filename_in,sep='\t')
+    df = df.drop('alive', axis=1)
+    df = tools_DF.hash_categoricals(df)
 
-    time_start = time.time()
-    for i in tqdm(range(100)):
-        df = pd.read_csv(filename_in,sep='\t')
-        EDA_histo(df)
-        #EDA_Columns(df)
-
-    print(f'Time elapsed: {time.time() - time_start:.2f} seconds')
+    ML.E2E_train_test_df(df,idx_target=0,do_charts=True,do_density=True,do_pca = True,description='')
+    #ML.P.pairplots_df(df, idx_target=0,cumul_mode=False,add_noise=True)
+    #ML.P.histoplots_df(df, idx_target=0)
